@@ -4,8 +4,6 @@ name: Release
 # v<version> release exists yet), or when a tag like v0.1.0 is pushed
 # (see docs/release-guide.md). Builds:
 #   - Windows x64: installer (Inno Setup) + portable .zip, optionally signed
-#   - Linux x64:   .tar.gz (experimental)
-#   - macOS arm64: .app in a .zip (experimental)
 # and publishes them, with SHA-256 checksums, as a GitHub release.
 
 on:
@@ -109,7 +107,10 @@ jobs:
       - name: Checksums
         shell: pwsh
         run: |
-          Get-ChildItem dist -File | ForEach-Object { "{0}  {1}" -f (Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLower(), $_.Name } | Out-File dist\SHA256SUMS-windows.txt -Encoding ascii
+          # Materialise the list first: writing into dist while enumerating it locks the file.
+          $lines = @(Get-ChildItem dist -File | ForEach-Object { "{0}  {1}" -f (Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLower(), $_.Name })
+          Set-Content -Path SHA256SUMS-windows.txt -Value $lines -Encoding ascii
+          Move-Item SHA256SUMS-windows.txt dist\SHA256SUMS-windows.txt
       - uses: actions/upload-artifact@v4
         with:
           name: windows
@@ -118,65 +119,8 @@ jobs:
             dist/*.zip
             dist/SHA256SUMS-windows.txt
 
-  linux:
-    needs: version
-    if: needs.version.outputs.release != 'skip'
-    runs-on: ubuntu-24.04
-    continue-on-error: true
-    env:
-      VERSION: ${{ needs.version.outputs.version }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@stable
-      - uses: Swatinem/rust-cache@v2
-        with:
-          workspaces: app/native
-      - run: sudo apt-get update && sudo apt-get install -y clang libclang-dev libgtk-4-dev
-      - run: |
-          curl -fsSL https://nsh.dev/install.sh | NSH_VERSION=$NSH_VERSION sh
-          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
-      - working-directory: app
-        run: nsh package App.tsx --target linux --app-version "$VERSION" -o ../dist/nsh
-      - run: |
-          cd dist/nsh && for f in *.tar.gz; do mv "$f" "../Nashir-$VERSION-linux-x64.tar.gz"; done
-          cd .. && sha256sum *.tar.gz > SHA256SUMS-linux.txt
-      - uses: actions/upload-artifact@v4
-        with:
-          name: linux
-          path: |
-            dist/*.tar.gz
-            dist/SHA256SUMS-linux.txt
-
-  macos:
-    needs: version
-    if: needs.version.outputs.release != 'skip'
-    runs-on: macos-14
-    continue-on-error: true
-    env:
-      VERSION: ${{ needs.version.outputs.version }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@stable
-      - uses: Swatinem/rust-cache@v2
-        with:
-          workspaces: app/native
-      - run: |
-          curl -fsSL https://nsh.dev/install.sh | NSH_VERSION=$NSH_VERSION sh
-          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
-      - working-directory: app
-        run: nsh package App.tsx --target macos --app-version "$VERSION" -o ../dist/nsh
-      - run: |
-          cd dist/nsh && ditto -c -k --keepParent Nashir.app "../Nashir-$VERSION-macos-arm64.zip"
-          cd .. && shasum -a 256 *.zip > SHA256SUMS-macos.txt
-      - uses: actions/upload-artifact@v4
-        with:
-          name: macos
-          path: |
-            dist/*.zip
-            dist/SHA256SUMS-macos.txt
-
   publish:
-    needs: [version, windows, linux, macos]
+    needs: [version, windows]
     if: ${{ always() && needs.windows.result == 'success' && needs.version.outputs.release == 'true' }}
     runs-on: ubuntu-24.04
     steps:

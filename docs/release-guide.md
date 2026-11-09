@@ -26,7 +26,6 @@ Pre-releases (`0.2.0-beta.1`) are published as GitHub pre-releases.
    A push that changes `app/nsh.json` releases its version once (the workflow creates the `v0.2.0` tag itself). Pushing a tag `v0.2.0` also works.
 5. **CI** (`.github/workflows/release.yml`) checks the version, then builds:
    - Windows x64: `Nashir-0.2.0-windows-x64-setup.exe` and `Nashir-0.2.0-windows-x64-portable.zip` (signed when secrets exist);
-   - Linux x64 `.tar.gz` and macOS arm64 `.zip` (experimental; failures do not block the release);
    - `SHA256SUMS-*.txt`;
    and publishes a GitHub release with the changelog section as notes.
 6. **Website** — `site/` deploys to GitHub Pages on pushes to `main` (`pages.yml`); download buttons point to `releases/latest`, so nothing to change.
