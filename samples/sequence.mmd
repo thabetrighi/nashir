@@ -1,0 +1,11 @@
+sequenceDiagram
+    actor U as القارئ
+    participant N as ناشر
+    participant R as نواة Rust
+    U->>N: فتح مستند
+    N->>R: قراءة وتحليل
+    R-->>N: الأقسام والمحتويات
+    N-->>U: عرض المستند
+    loop كل ثانيتين
+        N->>R: هل تغيّر الملف؟
+    end

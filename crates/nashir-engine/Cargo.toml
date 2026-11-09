@@ -1,0 +1,15 @@
+[package]
+name = "nashir-engine"
+description = "Nashir's platform-independent core: document loading and validation, sectioning, outline, bidi direction detection, Arabic-aware search and a native Mermaid layout engine."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[dev-dependencies]

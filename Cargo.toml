@@ -1,0 +1,20 @@
+[workspace]
+resolver = "2"
+members = ["crates/nashir-engine"]
+# `app/native` is the NSH native module; `nsh` builds it with NSH's own
+# runners, so it is kept out of this workspace (see docs/rust-native-modules.md).
+exclude = ["app/native"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+authors = ["Nashir contributors"]
+repository = "https://github.com/nashir-app/nashir"
+rust-version = "1.80"
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+opt-level = 3
+strip = "symbols"

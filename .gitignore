@@ -1,0 +1,20 @@
+# Rust
+/target/
+/app/native/target/
+**/*.rs.bk
+
+# NSH: generated declarations, runner sources and build output
+.nsh/
+/dist/
+
+# Editors and OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Signing material must never be committed
+*.pfx
+*.p12
+*.secret
