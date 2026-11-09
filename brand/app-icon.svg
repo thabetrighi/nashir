@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#19C3AF"/>
+      <stop offset="0.55" stop-color="#0F8A80"/>
+      <stop offset="1" stop-color="#0B5E58"/>
+    </linearGradient>
+    <linearGradient id="sheen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.16"/>
+      <stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="s" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#06302C" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+  <g filter="url(#s)"><rect x="72" y="64" width="880" height="880" rx="196" fill="url(#g)"/></g>
+  <rect x="72" y="64" width="880" height="880" rx="196" fill="url(#sheen)"/>
+  <g transform="translate(72 64) scale(13.75)">
+    <path d="M13.5 26.5C13.5 40.5 21.5 50 32 50C42.5 50 50.5 40.5 50.5 26.5C50.5 25.4 49.6 24.6 48.5 24.6H47.7C46.6 24.6 45.8 25.5 45.8 26.6C45.6 37.4 39.9 44.4 32 44.4C24.1 44.4 18.4 37.4 18.2 26.6C18.2 25.5 17.4 24.6 16.3 24.6H15.5C14.4 24.6 13.5 25.4 13.5 26.5Z" fill="#FFFFFF"/>
+    <path d="M32 11.6L36.6 16.2L32 20.8L27.4 16.2Z" fill="#FFFFFF"/>
+  </g>
+</svg>
