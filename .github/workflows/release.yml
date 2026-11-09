@@ -112,7 +112,7 @@ jobs:
           $lines = @(Get-ChildItem dist -File | ForEach-Object { "{0}  {1}" -f (Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLower(), $_.Name })
           Set-Content -Path SHA256SUMS-windows.txt -Value $lines -Encoding ascii
           Move-Item SHA256SUMS-windows.txt dist\SHA256SUMS-windows.txt
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: windows
           path: |
@@ -144,7 +144,7 @@ jobs:
       - run: |
           cd dist/nsh && for f in *.tar.gz; do mv "$f" "../Nashir-$VERSION-linux-x64.tar.gz"; done
           cd .. && sha256sum *.tar.gz > SHA256SUMS-linux.txt
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: linux
           path: |
@@ -172,7 +172,7 @@ jobs:
       - run: |
           cd dist/nsh && ditto -c -k --keepParent Nashir.app "../Nashir-$VERSION-macos-arm64.zip"
           cd .. && shasum -a 256 ../dist/*.zip > ../dist/SHA256SUMS-macos.txt
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: macos
           path: |
