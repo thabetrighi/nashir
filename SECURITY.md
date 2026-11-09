@@ -7,7 +7,7 @@ Security fixes go into the latest release. Please update to the newest version b
 ## Reporting a vulnerability
 
 Please **do not** open a public issue for security problems. Use GitHub's
-[private vulnerability reporting](https://github.com/nashir-app/nashir/security/advisories/new)
+[private vulnerability reporting](https://github.com/thabetrighi/nashir/security/advisories/new)
 with:
 
 - the Nashir version and Windows version;

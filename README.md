@@ -7,11 +7,13 @@
 **قارئ Markdown أصلي وسريع، بالعربية أولاً**
 *A native, fast, Arabic-first Markdown reader*
 
-[![CI](https://github.com/nashir-app/nashir/actions/workflows/ci.yml/badge.svg)](https://github.com/nashir-app/nashir/actions/workflows/ci.yml)
-[![Release](https://github.com/nashir-app/nashir/actions/workflows/release.yml/badge.svg)](https://github.com/nashir-app/nashir/releases)
+[![CI](https://github.com/thabetrighi/nashir/actions/workflows/ci.yml/badge.svg)](https://github.com/thabetrighi/nashir/actions/workflows/ci.yml)
+[![Release](https://github.com/thabetrighi/nashir/actions/workflows/release.yml/badge.svg)](https://github.com/thabetrighi/nashir/releases)
 ![Windows 10/11](https://img.shields.io/badge/Windows-10%20%7C%2011-0F766E)
 ![Native Shell 0.4](https://img.shields.io/badge/Native%20Shell-0.4-0F766E)
 ![License: MIT](https://img.shields.io/badge/license-MIT-0F766E)
+[![PRs welcome](https://img.shields.io/badge/PRs-welcome-0F766E)](CONTRIBUTING.md)
+[![Website](https://img.shields.io/badge/website-thabetrighi.github.io%2Fnashir-0F766E)](https://thabetrighi.github.io/nashir/)
 
 [العربية](#العربية) · [English](#english)
 
@@ -37,11 +39,15 @@
 
 ### التثبيت
 
-نزّل أحدث إصدار من [صفحة الإصدارات](https://github.com/nashir-app/nashir/releases/latest):
+نزّل أحدث إصدار من [صفحة الإصدارات](https://github.com/thabetrighi/nashir/releases/latest):
 - `Nashir-<version>-windows-x64-setup.exe`: مثبّت مع اختصارات وربط ملفات `.md`.
 - `Nashir-<version>-windows-x64-portable.zip`: نسخة محمولة؛ فك الضغط وشغّل `Nashir.exe`.
 
 يتطلب Windows 10 (الإصدار 1809) أو أحدث.
+
+### المساهمة
+
+المساهمات مرحّب بها بالعربية أو الإنجليزية أو الفرنسية: ترجمة، أو ميزة في Mermaid، أو اختبار، أو توثيق. راجع [دليل المساهمة](CONTRIBUTING.md) لقائمة بنقاط البداية المناسبة.
 
 ### البناء من المصدر
 
@@ -120,6 +126,15 @@ cargo run --release -p nashir-engine --example bench
 cd app && nsh run App.tsx                       # run with hot reload (Windows)
 cd app/native && cargo test                     # headless UI tests of App.tsx
 ```
+
+### Contributing
+
+Nashir is young and contributions shape it. Translations, Mermaid features, tests and docs are all great first steps — see [CONTRIBUTING.md](CONTRIBUTING.md) for a map of good first contributions. The Rust engine builds and tests on any OS; no Windows needed to help.
+
+- 🐞 [Report a bug](https://github.com/thabetrighi/nashir/issues/new?template=bug_report.yml) · 💡 [Suggest a feature](https://github.com/thabetrighi/nashir/issues/new?template=feature_request.yml)
+- ⭐ If Nashir is useful to you, a star helps others find it.
+
+Please follow the [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ### License
 

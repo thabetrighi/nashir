@@ -25,5 +25,5 @@ The first release of Nashir (ناشر), a native Markdown reader for Windows bui
 - **Quality:** 55 engine unit tests, 12 headless UI tests of the real `App.tsx` on NSH's engine, strict TypeScript checking against NSH's generated declarations, a 100 KB–50 MB benchmark, CI on every push.
 - **Website:** bilingual landing page deployed to GitHub Pages.
 
-[Unreleased]: https://github.com/nashir-app/nashir/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/nashir-app/nashir/releases/tag/v0.1.0
+[Unreleased]: https://github.com/thabetrighi/nashir/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/thabetrighi/nashir/releases/tag/v0.1.0

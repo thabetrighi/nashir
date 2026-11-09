@@ -10,7 +10,7 @@ version = "0.1.0"
 edition = "2021"
 license = "MIT"
 authors = ["Nashir contributors"]
-repository = "https://github.com/nashir-app/nashir"
+repository = "https://github.com/thabetrighi/nashir"
 rust-version = "1.80"
 
 [profile.release]
