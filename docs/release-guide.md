@@ -18,12 +18,12 @@ Pre-releases (`0.2.0-beta.1`) are published as GitHub pre-releases.
 1. **Changelog** — move the `[Unreleased]` entries of `CHANGELOG.md` under `## [0.2.0] - YYYY-MM-DD` and update the links at the bottom. The release notes are taken from this section.
 2. **Version** — `python3 scripts/version.py set 0.2.0`.
 3. **QA** — run the [manual checklist](testing-and-qa.md#manual-qa-checklist-per-release) on Windows 10 and 11 with a build from `workflow_dispatch` (Actions → Release → *Run workflow*, which builds without publishing).
-4. **Commit and tag**:
+4. **Commit and push to `main`**:
    ```sh
    git commit -am "Release 0.2.0"
-   git tag -a v0.2.0 -m "Nashir 0.2.0"
-   git push origin main --tags
+   git push origin main
    ```
+   A push that changes `app/nsh.json` releases its version once (the workflow creates the `v0.2.0` tag itself). Pushing a tag `v0.2.0` also works.
 5. **CI** (`.github/workflows/release.yml`) checks the version, then builds:
    - Windows x64: `Nashir-0.2.0-windows-x64-setup.exe` and `Nashir-0.2.0-windows-x64-portable.zip` (signed when secrets exist);
    - Linux x64 `.tar.gz` and macOS arm64 `.zip` (experimental; failures do not block the release);

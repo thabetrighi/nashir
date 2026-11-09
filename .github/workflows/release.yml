@@ -1,6 +1,8 @@
 name: Release
 
-# Push a tag like v0.1.0 (see docs/release-guide.md). Builds:
+# Runs when a new version reaches main (app/nsh.json changes and no
+# v<version> release exists yet), or when a tag like v0.1.0 is pushed
+# (see docs/release-guide.md). Builds:
 #   - Windows x64: installer (Inno Setup) + portable .zip, optionally signed
 #   - Linux x64:   .tar.gz (experimental)
 #   - macOS arm64: .app in a .zip (experimental)
@@ -8,6 +10,8 @@ name: Release
 
 on:
   push:
+    branches: [main]
+    paths: ["app/nsh.json", ".github/workflows/release.yml"]
     tags: ["v*.*.*"]
   workflow_dispatch:
     inputs:
@@ -28,17 +32,30 @@ jobs:
     runs-on: ubuntu-24.04
     outputs:
       version: ${{ steps.v.outputs.version }}
+      release: ${{ steps.v.outputs.release }}
     steps:
       - uses: actions/checkout@v4
       - id: v
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then V="${{ inputs.version }}"; else V="${GITHUB_REF_NAME#v}"; fi
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            V="${{ inputs.version }}"; RELEASE=false
+          elif [ "${{ github.ref_type }}" = "tag" ]; then
+            V="${GITHUB_REF_NAME#v}"; RELEASE=true
+          else
+            # A push to main: release the version in nsh.json once.
+            V=$(python3 -c "import json; print(json.load(open('app/nsh.json'))['version'])")
+            if gh release view "v$V" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then RELEASE=skip; else RELEASE=true; fi
+          fi
           echo "version=$V" >> "$GITHUB_OUTPUT"
-          # The tag must match the version in the sources.
+          echo "release=$RELEASE" >> "$GITHUB_OUTPUT"
+          # The version must match every file that states it.
           python3 scripts/version.py check "$V"
 
   windows:
     needs: version
+    if: needs.version.outputs.release != 'skip'
     runs-on: windows-2022
     env:
       VERSION: ${{ needs.version.outputs.version }}
@@ -103,6 +120,7 @@ jobs:
 
   linux:
     needs: version
+    if: needs.version.outputs.release != 'skip'
     runs-on: ubuntu-24.04
     continue-on-error: true
     env:
@@ -131,6 +149,7 @@ jobs:
 
   macos:
     needs: version
+    if: needs.version.outputs.release != 'skip'
     runs-on: macos-14
     continue-on-error: true
     env:
@@ -158,7 +177,7 @@ jobs:
 
   publish:
     needs: [version, windows, linux, macos]
-    if: ${{ always() && needs.windows.result == 'success' && github.event_name == 'push' }}
+    if: ${{ always() && needs.windows.result == 'success' && needs.version.outputs.release == 'true' }}
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
@@ -169,6 +188,8 @@ jobs:
         run: python3 scripts/version.py notes "${{ needs.version.outputs.version }}" > notes.md
       - uses: softprops/action-gh-release@v2
         with:
+          tag_name: v${{ needs.version.outputs.version }}
+          target_commitish: ${{ github.sha }}
           name: Nashir ${{ needs.version.outputs.version }}
           body_path: notes.md
           files: artifacts/**/*
