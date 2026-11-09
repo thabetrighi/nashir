@@ -138,9 +138,12 @@ jobs:
           curl -fsSL https://nsh.dev/install.sh | NSH_VERSION=$NSH_VERSION sh
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
       - working-directory: app
-        run: nsh package App.tsx --target linux --app-version "$VERSION" -o ../dist/nsh 2>&1 | tee ../nsh-linux.log
+        shell: bash
+        run: |
+          set -o pipefail
+          nsh package App.tsx --target linux --app-version "$VERSION" -o ../dist/nsh 2>&1 | tee ../nsh-linux.log
       - if: failure()
-        run: tail -n 60 nsh-linux.log || true
+        run: tail -n 80 nsh-linux.log || true
       - run: |
           cd dist/nsh && for f in *.tar.gz; do mv "$f" "../Nashir-$VERSION-linux-x64.tar.gz"; done
           cd .. && sha256sum *.tar.gz > SHA256SUMS-linux.txt
