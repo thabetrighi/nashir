@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="505" height="411" viewBox="0 0 505 411" font-family="'Segoe UI', 'IBM Plex Sans Arabic', Tahoma, 'Noto Sans Arabic', sans-serif">
+<rect width="100%" height="100%" fill="#FFFFFF"/>
+<path d="M60 72V339" fill="none" stroke="#CBD5E1" stroke-width="1.2" stroke-dasharray="5 4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M223.5 72V339" fill="none" stroke="#CBD5E1" stroke-width="1.2" stroke-dasharray="5 4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M434.32 72V339" fill="none" stroke="#CBD5E1" stroke-width="1.2" stroke-dasharray="5 4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M173.5 248.8H484.32A4 4 0 0 1 488.32 252.8V317A4 4 0 0 1 484.32 321H173.5A4 4 0 0 1 169.5 317V252.8A4 4 0 0 1 173.5 248.8Z" fill="none" stroke="#CBD5E1" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M169.5 248.8L211.42 248.8L211.42 262.8L205.42 268.8L169.5 268.8Z" fill="#CBD5E1" stroke="none" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M60 120.2H221.5" fill="none" stroke="#475569" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M223.5 120.2L213.5 124.7L213.5 115.7Z" fill="#475569" stroke="none" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M223.5 158.4H432.32" fill="none" stroke="#475569" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M434.32 158.4L424.32 162.9L424.32 153.9Z" fill="#475569" stroke="none" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M434.32 196.6H225.5" fill="none" stroke="#475569" stroke-width="1.5" stroke-dasharray="5 4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M223.5 196.6L233.5 192.1L233.5 201.1Z" fill="#475569" stroke="none" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M223.5 234.8H62" fill="none" stroke="#475569" stroke-width="1.5" stroke-dasharray="5 4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M60 234.8L70 230.3L70 239.3Z" fill="#475569" stroke="none" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M223.5 303H432.32" fill="none" stroke="#475569" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M434.32 303L424.32 307.5L424.32 298.5Z" fill="#475569" stroke="none" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M54.5 24A5.5 5.5 0 1 0 65.5 24A5.5 5.5 0 1 0 54.5 24Z" fill="#EAF5F3" stroke="#0F766E" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M60 29.5V40M51 33H69M60 40L53 49M60 40L67 49" fill="none" stroke="#0F766E" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M54.5 345A5.5 5.5 0 1 0 65.5 345A5.5 5.5 0 1 0 54.5 345Z" fill="#EAF5F3" stroke="#0F766E" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M60 350.5V361M51 354H69M60 361L53 370M60 361L67 370" fill="none" stroke="#0F766E" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M181.5 18H265.5A6 6 0 0 1 271.5 24V66A6 6 0 0 1 265.5 72H181.5A6 6 0 0 1 175.5 66V24A6 6 0 0 1 181.5 18Z" fill="#EAF5F3" stroke="#0F766E" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M181.5 339H265.5A6 6 0 0 1 271.5 345V387A6 6 0 0 1 265.5 393H181.5A6 6 0 0 1 175.5 387V345A6 6 0 0 1 181.5 339Z" fill="#EAF5F3" stroke="#0F766E" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M392.32 18H476.32A6 6 0 0 1 482.32 24V66A6 6 0 0 1 476.32 72H392.32A6 6 0 0 1 386.32 66V24A6 6 0 0 1 392.32 18Z" fill="#EAF5F3" stroke="#0F766E" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M392.32 339H476.32A6 6 0 0 1 482.32 345V387A6 6 0 0 1 476.32 393H392.32A6 6 0 0 1 386.32 387V345A6 6 0 0 1 392.32 339Z" fill="#EAF5F3" stroke="#0F766E" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<text font-size="13" font-weight="400" fill="#1F2937" text-anchor="middle" direction="rtl" unicode-bidi="plaintext"><tspan x="141.75" y="109.65">فتح مستند</tspan></text>
+<text font-size="13" font-weight="400" fill="#1F2937" text-anchor="middle" direction="rtl" unicode-bidi="plaintext"><tspan x="328.91" y="147.85">قراءة وتحليل</tspan></text>
+<text font-size="13" font-weight="400" fill="#1F2937" text-anchor="middle" direction="rtl" unicode-bidi="plaintext"><tspan x="328.91" y="186.05">الأقسام والمحتويات</tspan></text>
+<text font-size="13" font-weight="400" fill="#1F2937" text-anchor="middle" direction="rtl" unicode-bidi="plaintext"><tspan x="141.75" y="224.25">عرض المستند</tspan></text>
+<text font-size="13" font-weight="400" fill="#1F2937" text-anchor="middle" direction="rtl" unicode-bidi="plaintext"><tspan x="328.91" y="292.45">هل تغيّر الملف؟</tspan></text>
+<text font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle"><tspan x="190.46" y="263">loop</tspan></text>
+<text font-size="12.5" font-weight="600" fill="#64748B" text-anchor="start" direction="rtl" unicode-bidi="plaintext"><tspan x="480.32" y="263.17">[كل ثانيتين]</tspan></text>
+<text font-size="13" font-weight="600" fill="#1F2937" text-anchor="middle" direction="rtl" unicode-bidi="plaintext"><tspan x="60" y="65.55">القارئ</tspan></text>
+<text font-size="13" font-weight="600" fill="#1F2937" text-anchor="middle" direction="rtl" unicode-bidi="plaintext"><tspan x="60" y="386.55">القارئ</tspan></text>
+<text font-size="14" font-weight="600" fill="#1F2937" text-anchor="middle" direction="rtl" unicode-bidi="plaintext"><tspan x="223.5" y="49.9">ناشر</tspan></text>
+<text font-size="14" font-weight="600" fill="#1F2937" text-anchor="middle" direction="rtl" unicode-bidi="plaintext"><tspan x="223.5" y="370.9">ناشر</tspan></text>
+<text font-size="14" font-weight="600" fill="#1F2937" text-anchor="middle" direction="rtl" unicode-bidi="plaintext"><tspan x="434.32" y="49.9">نواة Rust</tspan></text>
+<text font-size="14" font-weight="600" fill="#1F2937" text-anchor="middle" direction="rtl" unicode-bidi="plaintext"><tspan x="434.32" y="370.9">نواة Rust</tspan></text>
+</svg>

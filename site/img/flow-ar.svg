@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="868" height="154" viewBox="0 0 868 154" font-family="'Segoe UI', 'IBM Plex Sans Arabic', Tahoma, 'Noto Sans Arabic', sans-serif">
+<rect width="100%" height="100%" fill="#FFFFFF"/>
+<path d="M107.44 86.23C139.44 86.23 139.44 80.54 171.44 80.54" fill="none" stroke="#475569" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M171.44 80.54L161.94 84.81L161.94 76.26Z" fill="#475569" stroke="none" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M324.84 80.54C356.84 80.54 356.84 35 388.84 35" fill="none" stroke="#475569" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M388.84 35L379.34 39.28L379.34 30.73Z" fill="#475569" stroke="none" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M324.84 80.54C360.41 80.54 360.41 109 395.98 109" fill="none" stroke="#475569" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M395.98 109L386.48 113.28L386.48 104.73Z" fill="#475569" stroke="none" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M510.12 35C542.12 35 542.12 40.69 574.12 40.69" fill="none" stroke="#475569" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M574.12 40.69L564.62 44.97L564.62 36.42Z" fill="#475569" stroke="none" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M702.96 40.69C734.96 40.69 734.96 40.69 766.96 40.69" fill="none" stroke="#475569" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M766.96 40.69L757.46 44.97L757.46 36.42Z" fill="#475569" stroke="none" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M18 66.23H104.44A3 3 0 0 1 107.44 69.23V103.23A3 3 0 0 1 104.44 106.23H18A3 3 0 0 1 15 103.23V69.23A3 3 0 0 1 18 66.23Z" fill="#EAF5F3" stroke="#0F766E" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M248.14 19.18L324.84 80.54L248.14 141.9L171.44 80.54Z" fill="#EAF5F3" stroke="#0F766E" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M391.84 15H507.12A3 3 0 0 1 510.12 18V52A3 3 0 0 1 507.12 55H391.84A3 3 0 0 1 388.84 52V18A3 3 0 0 1 391.84 15Z" fill="#EAF5F3" stroke="#0F766E" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M398.98 89H499.98A3 3 0 0 1 502.98 92V126A3 3 0 0 1 499.98 129H398.98A3 3 0 0 1 395.98 126V92A3 3 0 0 1 398.98 89Z" fill="#EAF5F3" stroke="#0F766E" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M577.12 20.69H699.96A3 3 0 0 1 702.96 23.69V57.69A3 3 0 0 1 699.96 60.69H577.12A3 3 0 0 1 574.12 57.69V23.69A3 3 0 0 1 577.12 20.69Z" fill="#EAF5F3" stroke="#0F766E" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M769.96 20.69H849.12A3 3 0 0 1 852.12 23.69V57.69A3 3 0 0 1 849.12 60.69H769.96A3 3 0 0 1 766.96 57.69V23.69A3 3 0 0 1 769.96 20.69Z" fill="#EAF5F3" stroke="#0F766E" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="341.09" y="47.02" width="31.5" height="21.5" rx="3" fill="#FFFFFF"/>
+<text font-size="12.5" font-weight="400" fill="#1F2937" text-anchor="middle" direction="rtl" unicode-bidi="plaintext"><tspan x="356.84" y="62.14">نعم</tspan></text>
+<rect x="347.91" y="84.02" width="25" height="21.5" rx="3" fill="#FFFFFF"/>
+<text font-size="12.5" font-weight="400" fill="#1F2937" text-anchor="middle" direction="rtl" unicode-bidi="plaintext"><tspan x="360.41" y="99.14">لا</tspan></text>
+<text font-size="14" font-weight="500" fill="#1F2937" text-anchor="middle" direction="rtl" unicode-bidi="plaintext"><tspan x="61.22" y="91.13">فتح الملف</tspan></text>
+<text font-size="14" font-weight="500" fill="#1F2937" text-anchor="middle" direction="rtl" unicode-bidi="plaintext"><tspan x="248.14" y="85.44">ملف Markdown؟</tspan></text>
+<text font-size="14" font-weight="500" fill="#1F2937" text-anchor="middle" direction="rtl" unicode-bidi="plaintext"><tspan x="449.48" y="39.9">تحليل في Rust</tspan></text>
+<text font-size="14" font-weight="500" fill="#1F2937" text-anchor="middle" direction="rtl" unicode-bidi="plaintext"><tspan x="449.48" y="113.9">رسالة واضحة</tspan></text>
+<text font-size="14" font-weight="500" fill="#1F2937" text-anchor="middle" direction="rtl" unicode-bidi="plaintext"><tspan x="638.54" y="45.59">أقسام ومحتويات</tspan></text>
+<text font-size="14" font-weight="500" fill="#1F2937" text-anchor="middle" direction="rtl" unicode-bidi="plaintext"><tspan x="809.54" y="45.59">عرض أصلي</tspan></text>
+</svg>

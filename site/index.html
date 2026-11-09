@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ناشر · Nashir — قارئ Markdown أصلي</title>
+  <meta name="description" content="ناشر: قارئ Markdown أصلي وسريع لنظام Windows، بالعربية أولاً، مع دعم RTL حقيقي ومخططات Mermaid، ومحلي بالكامل.">
+  <meta property="og:title" content="Nashir · ناشر">
+  <meta property="og:description" content="A native, fast, Arabic-first Markdown reader. Rust · Native Shell · RTL · Mermaid · Local-first.">
+  <meta property="og:image" content="brand/social-preview.png">
+  <link rel="icon" href="favicon.png">
+  <style>
+    :root {
+      --page: #FBF8F1; --surface: #FFFFFF; --ink: #1C2127; --soft: #3D4650; --muted: #6B7480;
+      --accent: #0F766E; --accent-strong: #0B5E58; --accent-soft: #E3F2EF; --line: #E6E1D6;
+      --radius: 18px; --shadow: 0 18px 50px rgba(20, 24, 28, .08);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --page: #111316; --surface: #191C20; --ink: #E6E8EB; --soft: #C3C8CE; --muted: #8B939C;
+        --accent: #2DD4BF; --accent-strong: #5EEAD4; --accent-soft: #163532; --line: #2A2F35;
+        --shadow: 0 18px 50px rgba(0, 0, 0, .35);
+      }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--page); color: var(--ink); font: 17px/1.75 "Segoe UI", "IBM Plex Sans Arabic", "Noto Sans Arabic", Tahoma, system-ui, sans-serif; }
+    a { color: var(--accent); text-decoration: none; }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+    header { display: flex; align-items: center; justify-content: space-between; padding: 22px 0; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 20px; color: var(--ink); }
+    .brand img { width: 36px; height: 36px; }
+    nav { display: flex; gap: 18px; align-items: center; font-size: 15px; }
+    nav a { color: var(--soft); }
+    .lang { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 6px 14px; font: inherit; font-size: 14px; cursor: pointer; }
+    .hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 48px; align-items: center; padding: 56px 0 40px; }
+    h1 { font-size: clamp(36px, 5vw, 56px); line-height: 1.15; margin: 0 0 18px; letter-spacing: -.01em; }
+    h1 em { font-style: normal; color: var(--accent); }
+    .lead { font-size: 19px; color: var(--soft); margin: 0 0 28px; }
+    .cta { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 10px; border-radius: 12px; padding: 13px 20px; font-weight: 600; font-size: 16px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
+    .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .btn.primary:hover { background: var(--accent-strong); }
+    .note { margin-top: 14px; font-size: 14px; color: var(--muted); }
+    .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+    .window { overflow: hidden; }
+    .window .bar { display: flex; gap: 8px; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+    .window .bar span.tab { background: var(--page); border: 1px solid var(--line); border-radius: 8px; padding: 2px 10px; color: var(--ink); }
+    .window .body { padding: 22px 26px; }
+    .window h3 { margin: 0 0 6px; font-size: 22px; }
+    .window p { margin: 0 0 14px; color: var(--soft); font-size: 15px; }
+    .window img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--line); background: #fff; }
+    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; padding: 30px 0 10px; }
+    .feature { padding: 24px; }
+    .feature h3 { margin: 10px 0 6px; font-size: 18px; }
+    .feature p { margin: 0; color: var(--soft); font-size: 15px; }
+    .icon { width: 40px; height: 40px; border-radius: 12px; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; font-weight: 700; }
+    section h2 { font-size: 30px; margin: 64px 0 10px; }
+    section > p.sub { color: var(--soft); margin: 0 0 24px; }
+    .diagrams { display: grid; grid-template-columns: 1.4fr 1fr; gap: 18px; }
+    .diagrams figure { margin: 0; padding: 16px; }
+    .diagrams img { width: 100%; height: auto; }
+    .diagrams figcaption { font-size: 13px; color: var(--muted); margin-top: 8px; }
+    table { width: 100%; border-collapse: collapse; font-size: 15px; }
+    td, th { padding: 10px 14px; border-bottom: 1px solid var(--line); text-align: start; }
+    kbd { font: 13px "Segoe UI", system-ui; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 6px; padding: 1px 7px; background: var(--surface); direction: ltr; display: inline-block; }
+    .privacy { display: grid; grid-template-columns: auto 1fr; gap: 20px; align-items: center; padding: 28px; margin-top: 56px; }
+    .privacy .shield { font-size: 34px; }
+    footer { padding: 48px 0 60px; color: var(--muted); font-size: 14px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    [data-lang] { display: none; }
+    html[lang="ar"] [data-lang="ar"], html[lang="en"] [data-lang="en"] { display: revert; }
+    @media (max-width: 860px) {
+      .hero, .diagrams { grid-template-columns: 1fr; }
+      .features { grid-template-columns: 1fr; }
+      nav a { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="#"><img src="brand/logo-mark.svg" alt=""><span data-lang="ar">ناشر</span><span data-lang="en">Nashir</span></a>
+      <nav>
+        <a href="#features"><span data-lang="ar">المزايا</span><span data-lang="en">Features</span></a>
+        <a href="#diagrams"><span data-lang="ar">المخططات</span><span data-lang="en">Diagrams</span></a>
+        <a href="https://github.com/nashir-app/nashir">GitHub</a>
+        <button class="lang" id="lang" type="button">English</button>
+      </nav>
+    </header>
+
+    <main>
+      <div class="hero">
+        <div>
+          <h1 data-lang="ar">اقرأ Markdown <em>بالعربية</em>، كما ينبغي أن يُقرأ.</h1>
+          <h1 data-lang="en">Read Markdown <em>in Arabic</em>, the way it should read.</h1>
+          <p class="lead" data-lang="ar">ناشر قارئ مستندات أصلي وسريع لنظام Windows. اتجاه حقيقي من اليمين إلى اليسار، ومخططات Mermaid تُرسم محلياً، وبحث يفهم العربية، وكل ذلك دون أن تغادر ملفاتك جهازك.</p>
+          <p class="lead" data-lang="en">Nashir is a native, fast document reader for Windows. True right-to-left layout, Mermaid diagrams drawn locally, Arabic-aware search — and your files never leave your device.</p>
+          <div class="cta">
+            <a class="btn primary" href="https://github.com/nashir-app/nashir/releases/latest">
+              <span data-lang="ar">تنزيل لنظام Windows</span><span data-lang="en">Download for Windows</span>
+            </a>
+            <a class="btn" href="https://github.com/nashir-app/nashir">
+              <span data-lang="ar">الشيفرة المصدرية</span><span data-lang="en">Source code</span>
+            </a>
+          </div>
+          <p class="note" data-lang="ar">Windows 10 (1809) و11 · مثبّت ونسخة محمولة · مجاني ومفتوح المصدر</p>
+          <p class="note" data-lang="en">Windows 10 (1809) and 11 · Installer and portable · Free and open source</p>
+        </div>
+        <div class="card window" aria-label="Nashir">
+          <div class="bar"><span class="tab">دليل.md</span><span>README.md</span></div>
+          <div class="body">
+            <h3>كيف يعمل ناشر</h3>
+            <p>يُحلَّل المستند في Rust ويُعرض بمكوّنات النظام الأصلية، قسماً بقسم.</p>
+            <img src="img/flow-ar.svg" alt="مخطط تدفق بالعربية رسمه محرك ناشر">
+          </div>
+        </div>
+      </div>
+
+      <section id="features">
+        <div class="features">
+          <div class="card feature"><div class="icon">ع</div>
+            <h3 data-lang="ar">RTL حقيقي</h3><h3 data-lang="en">Real RTL</h3>
+            <p data-lang="ar">اكتشاف تلقائي للاتجاه لكل قسم، وفقرات مختلطة عربية وإنجليزية، وأكواد ومسارات وأرقام تبقى سليمة.</p>
+            <p data-lang="en">Direction detected per section, mixed Arabic and English paragraphs, and code, paths and numbers that stay intact.</p>
+          </div>
+          <div class="card feature"><div class="icon">⚡</div>
+            <h3 data-lang="ar">سريع مع الملفات الكبيرة</h3><h3 data-lang="en">Fast on large files</h3>
+            <p data-lang="ar">قائمة افتراضية تعرض ما يظهر فقط؛ مستند 10 ميغابايت يُفتح في ثوانٍ دون تجميد الواجهة.</p>
+            <p data-lang="en">A virtualized list renders only what is visible; a 10 MB document opens in seconds without freezing.</p>
+          </div>
+          <div class="card feature"><div class="icon">⌕</div>
+            <h3 data-lang="ar">بحث يفهم العربية</h3><h3 data-lang="en">Arabic-aware search</h3>
+            <p data-lang="ar">يتجاهل التشكيل والتطويل واختلاف الهمزات والتاء المربوطة، مع مقتطفات وتمييز للنتائج.</p>
+            <p data-lang="en">Ignores diacritics, tatweel, hamza and taa-marbuta variants, with snippets and highlighted results.</p>
+          </div>
+          <div class="card feature"><div class="icon">◇</div>
+            <h3 data-lang="ar">Mermaid محلياً</h3><h3 data-lang="en">Native Mermaid</h3>
+            <p data-lang="ar">عشرة أنواع من المخططات تُرسم بمحرك Rust دون متصفح، مع نص عربي وتكبير وتصدير SVG.</p>
+            <p data-lang="en">Ten diagram types laid out by a Rust engine — no browser — with Arabic labels, zoom and SVG export.</p>
+          </div>
+          <div class="card feature"><div class="icon">☰</div>
+            <h3 data-lang="ar">تنقل مريح</h3><h3 data-lang="en">Easy navigation</h3>
+            <p data-lang="ar">محتويات تلقائية مع إبراز القسم الحالي، وتبويبات مثبتة، وإشارات، واستعادة الجلسة وموضع القراءة.</p>
+            <p data-lang="en">Automatic outline with the current section highlighted, pinned tabs, bookmarks, restored sessions and positions.</p>
+          </div>
+          <div class="card feature"><div class="icon">Aa</div>
+            <h3 data-lang="ar">قراءة على مقاسك</h3><h3 data-lang="en">Reading, your way</h3>
+            <p data-lang="ar">حجم الخط والتباعد وعرض النص والخطوط، وسمات فاتحة وورقية وداكنة، ووضع قراءة مريح.</p>
+            <p data-lang="en">Text size, spacing, measure and fonts; light, paper and dark themes; a comfort reading mode.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="diagrams">
+        <h2 data-lang="ar">مخططات تُرسم محلياً</h2><h2 data-lang="en">Diagrams, drawn locally</h2>
+        <p class="sub" data-lang="ar">هذه الرسوم أنتجها محرك ناشر نفسه من شيفرة Mermaid — لا خدمة خارجية ولا متصفح.</p>
+        <p class="sub" data-lang="en">These drawings were produced by Nashir's own engine from Mermaid source — no external service, no browser.</p>
+        <div class="diagrams">
+          <figure class="card"><img src="img/flow-ar.svg" alt="Flowchart"><figcaption>flowchart LR</figcaption></figure>
+          <figure class="card"><img src="img/sequence.svg" alt="Sequence diagram"><figcaption>sequenceDiagram</figcaption></figure>
+        </div>
+      </section>
+
+      <section>
+        <h2 data-lang="ar">اختصارات لوحة المفاتيح</h2><h2 data-lang="en">Keyboard shortcuts</h2>
+        <div class="card" style="padding: 8px 10px">
+          <table>
+            <tr><td><kbd>Ctrl</kbd> + <kbd>O</kbd></td><td data-lang="ar">فتح مستند</td><td data-lang="en">Open a document</td></tr>
+            <tr><td><kbd>Ctrl</kbd> + <kbd>F</kbd></td><td data-lang="ar">البحث</td><td data-lang="en">Search</td></tr>
+            <tr><td><kbd>Ctrl</kbd> + <kbd>+</kbd> / <kbd>−</kbd> / <kbd>0</kbd></td><td data-lang="ar">حجم الخط</td><td data-lang="en">Text size</td></tr>
+            <tr><td><kbd>Ctrl</kbd> + <kbd>Tab</kbd></td><td data-lang="ar">المستند التالي</td><td data-lang="en">Next document</td></tr>
+            <tr><td><kbd>Ctrl</kbd> + <kbd>W</kbd></td><td data-lang="ar">إغلاق المستند</td><td data-lang="en">Close document</td></tr>
+            <tr><td><kbd>F11</kbd></td><td data-lang="ar">ملء الشاشة</td><td data-lang="en">Full screen</td></tr>
+          </table>
+        </div>
+      </section>
+
+      <div class="card privacy">
+        <div class="shield">🛡️</div>
+        <div>
+          <strong data-lang="ar">محلي بالكامل.</strong><strong data-lang="en">Fully local.</strong>
+          <span data-lang="ar">لا حساب، ولا تتبّع أو تحليلات، ولا رفع للمستندات. الصور البعيدة لا تُحمَّل إلا بإذنك.</span>
+          <span data-lang="en">No account, no tracking or analytics, no uploads. Remote images load only when you allow them.</span>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <span>© Nashir contributors · MIT</span>
+      <span><a href="https://nsh.dev">Built with Native Shell</a> · <a href="https://github.com/nashir-app/nashir/blob/main/CHANGELOG.md">Changelog</a></span>
+    </footer>
+  </div>
+  <script>
+    (function () {
+      var html = document.documentElement;
+      var button = document.getElementById("lang");
+      function apply(lang) {
+        html.lang = lang;
+        html.dir = lang === "ar" ? "rtl" : "ltr";
+        button.textContent = lang === "ar" ? "English" : "العربية";
+        try { localStorage.setItem("nashir.lang", lang); } catch (e) {}
+      }
+      var saved = null;
+      try { saved = localStorage.getItem("nashir.lang"); } catch (e) {}
+      apply(saved === "en" ? "en" : "ar");
+      button.addEventListener("click", function () { apply(html.lang === "ar" ? "en" : "ar"); });
+    })();
+  </script>
+</body>
+</html>

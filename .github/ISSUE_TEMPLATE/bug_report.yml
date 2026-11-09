@@ -1,0 +1,26 @@
+name: Bug report · بلاغ عن خطأ
+description: Something doesn't work as expected
+labels: [bug]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Nashir version · الإصدار
+      placeholder: "0.1.0"
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: Windows version · إصدار Windows
+      placeholder: "Windows 11 23H2"
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect? · ماذا حدث وما المتوقع؟
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps or a sample .md file · خطوات أو ملف للتجربة

@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CARGO_TERM_COLOR: always
+  NSH_VERSION: v0.4.0
+
+jobs:
+  engine:
+    name: Engine (fmt, clippy, tests, benchmark)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo fmt --all --check
+      - run: cargo clippy --workspace --all-targets -- -D warnings
+      - run: cargo test --workspace
+      - name: Benchmark (100 KB – 50 MB)
+        run: |
+          cargo run --release -q -p nashir-engine --example bench | tee bench.md
+          cat bench.md >> "$GITHUB_STEP_SUMMARY"
+
+  app:
+    name: App (type-check, headless UI tests)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: app/native
+      - name: System packages (libclang for QuickJS bindings, GTK 4 for nsh)
+        run: sudo apt-get update && sudo apt-get install -y clang libclang-dev libgtk-4-dev
+      - name: Install nsh ${{ env.NSH_VERSION }}
+        run: |
+          curl -fsSL https://nsh.dev/install.sh | NSH_VERSION=$NSH_VERSION sh
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+      - name: Type-check the interface (nsh check)
+        working-directory: app
+        run: nsh check App.tsx
+      - name: Native module unit tests
+        working-directory: app/native
+        run: cargo test --lib
+      - name: Headless UI tests (App.tsx on NSH's engine)
+        working-directory: app/native
+        run: cargo test --test app

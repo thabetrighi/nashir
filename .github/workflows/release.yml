@@ -1,0 +1,175 @@
+name: Release
+
+# Push a tag like v0.1.0 (see docs/release-guide.md). Builds:
+#   - Windows x64: installer (Inno Setup) + portable .zip, optionally signed
+#   - Linux x64:   .tar.gz (experimental)
+#   - macOS arm64: .app in a .zip (experimental)
+# and publishes them, with SHA-256 checksums, as a GitHub release.
+
+on:
+  push:
+    tags: ["v*.*.*"]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to build (without the v), for a dry run"
+        required: true
+        default: "0.1.0"
+
+permissions:
+  contents: write
+
+env:
+  NSH_VERSION: v0.4.0
+  CARGO_TERM_COLOR: always
+
+jobs:
+  version:
+    runs-on: ubuntu-24.04
+    outputs:
+      version: ${{ steps.v.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: v
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then V="${{ inputs.version }}"; else V="${GITHUB_REF_NAME#v}"; fi
+          echo "version=$V" >> "$GITHUB_OUTPUT"
+          # The tag must match the version in the sources.
+          python3 scripts/version.py check "$V"
+
+  windows:
+    needs: version
+    runs-on: windows-2022
+    env:
+      VERSION: ${{ needs.version.outputs.version }}
+      # Signing runs only when the repository has the certificate secrets.
+      HAS_SIGNING: ${{ secrets.WINDOWS_CERT_PFX_BASE64 != '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: app/native
+      - name: LLVM (libclang for QuickJS bindings) and Inno Setup
+        run: choco install -y llvm innosetup
+      - name: Install nsh
+        shell: pwsh
+        run: |
+          $env:NSH_VERSION = "${{ env.NSH_VERSION }}"
+          irm https://nsh.dev/install.ps1 | iex
+          "$env:LOCALAPPDATA\nsh\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+      - name: Package (portable folder + zip)
+        working-directory: app
+        run: nsh package App.tsx --target windows --app-version ${{ env.VERSION }} -o ..\dist\nsh
+      - name: Sign the executable
+        if: env.HAS_SIGNING == 'true'
+        shell: pwsh
+        env:
+          SIGN_CERT: ${{ secrets.WINDOWS_CERT_PFX_BASE64 }}
+          SIGN_PASSWORD: ${{ secrets.WINDOWS_CERT_PASSWORD }}
+        run: |
+          [IO.File]::WriteAllBytes("cert.pfx", [Convert]::FromBase64String($env:SIGN_CERT))
+          $signtool = (Get-ChildItem "C:\Program Files (x86)\Windows Kits\10\bin\*\x64\signtool.exe" | Sort-Object FullName -Descending | Select-Object -First 1).FullName
+          & $signtool sign /fd sha256 /tr http://timestamp.digicert.com /td sha256 /f cert.pfx /p $env:SIGN_PASSWORD "dist\nsh\Nashir\Nashir.exe"
+          "SIGNTOOL=$signtool" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+      - name: Portable zip
+        shell: pwsh
+        run: |
+          Compress-Archive -Path dist\nsh\Nashir -DestinationPath "dist\Nashir-$env:VERSION-windows-x64-portable.zip"
+      - name: Installer
+        shell: pwsh
+        env:
+          SIGN_CERT: ${{ secrets.WINDOWS_CERT_PFX_BASE64 }}
+          SIGN_PASSWORD: ${{ secrets.WINDOWS_CERT_PASSWORD }}
+        run: |
+          $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
+          $args = @("/DAppVersion=$env:VERSION", "/DSourceDir=..\..\dist\nsh\Nashir", "/DOutputDir=..\..\dist")
+          if ($env:SIGN_CERT) {
+            $args += "/DSignTool=nashirsign"
+            $args += "/Snashirsign=`"$env:SIGNTOOL`" sign /fd sha256 /tr http://timestamp.digicert.com /td sha256 /f $PWD\cert.pfx /p $env:SIGN_PASSWORD `$f"
+          }
+          & $iscc @args packaging\windows\nashir.iss
+      - name: Checksums
+        shell: pwsh
+        run: |
+          Get-ChildItem dist -File | ForEach-Object { "{0}  {1}" -f (Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLower(), $_.Name } | Out-File dist\SHA256SUMS-windows.txt -Encoding ascii
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows
+          path: |
+            dist/*.exe
+            dist/*.zip
+            dist/SHA256SUMS-windows.txt
+
+  linux:
+    needs: version
+    runs-on: ubuntu-24.04
+    continue-on-error: true
+    env:
+      VERSION: ${{ needs.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: app/native
+      - run: sudo apt-get update && sudo apt-get install -y clang libclang-dev libgtk-4-dev
+      - run: |
+          curl -fsSL https://nsh.dev/install.sh | NSH_VERSION=$NSH_VERSION sh
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+      - working-directory: app
+        run: nsh package App.tsx --target linux --app-version "$VERSION" -o ../dist/nsh
+      - run: |
+          cd dist/nsh && for f in *.tar.gz; do mv "$f" "../Nashir-$VERSION-linux-x64.tar.gz"; done
+          cd .. && sha256sum *.tar.gz > SHA256SUMS-linux.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux
+          path: |
+            dist/*.tar.gz
+            dist/SHA256SUMS-linux.txt
+
+  macos:
+    needs: version
+    runs-on: macos-14
+    continue-on-error: true
+    env:
+      VERSION: ${{ needs.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: app/native
+      - run: |
+          curl -fsSL https://nsh.dev/install.sh | NSH_VERSION=$NSH_VERSION sh
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+      - working-directory: app
+        run: nsh package App.tsx --target macos --app-version "$VERSION" -o ../dist/nsh
+      - run: |
+          cd dist/nsh && ditto -c -k --keepParent Nashir.app "../Nashir-$VERSION-macos-arm64.zip"
+          cd .. && shasum -a 256 *.zip > SHA256SUMS-macos.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: macos
+          path: |
+            dist/*.zip
+            dist/SHA256SUMS-macos.txt
+
+  publish:
+    needs: [version, windows, linux, macos]
+    if: ${{ always() && needs.windows.result == 'success' && github.event_name == 'push' }}
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+      - name: Release notes from CHANGELOG.md
+        run: python3 scripts/version.py notes "${{ needs.version.outputs.version }}" > notes.md
+      - uses: softprops/action-gh-release@v2
+        with:
+          name: Nashir ${{ needs.version.outputs.version }}
+          body_path: notes.md
+          files: artifacts/**/*
+          prerelease: ${{ contains(needs.version.outputs.version, '-') }}
