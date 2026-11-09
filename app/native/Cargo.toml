@@ -1,0 +1,24 @@
+[package]
+name = "nashir-native"
+description = "Nashir's NSH native module: exposes the Rust engine (documents, search, Mermaid) and desktop services (file dialogs, launch arguments) to the TSX interface as `nashir/native`."
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+publish = false
+
+[dependencies]
+# NSH's crates at the CLI's version (nsh builds the runners with these).
+nsh-core = "0.4.0"
+nsh-base = "0.4.0"
+nashir-engine = { path = "../../crates/nashir-engine" }
+futures-channel = "0.3"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+log = "0.4"
+
+# Headless UI tests: App.tsx built against NSH's and this crate's sets, run
+# on the real engine without a window (`cargo test`).
+[dev-dependencies]
+nsh-core = { version = "0.4.0", features = ["declarations"] }
+nsh-engine = "0.4.0"
+nsh-testing = { version = "0.4.0", features = ["bundle"] }

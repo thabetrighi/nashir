@@ -1,0 +1,14 @@
+{
+  "name": "Nashir",
+  "id": "app.nashir.reader",
+  "version": "0.1.0",
+  "build": 1,
+  "icon": "assets/icon.png",
+  "rust": "native",
+  "appearance": "system",
+  "capabilities": {
+    "network": { "hosts": ["*"] },
+    "clipboard": true,
+    "openUrl": { "schemes": ["https", "http", "mailto"] }
+  }
+}
