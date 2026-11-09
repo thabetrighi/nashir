@@ -32,7 +32,7 @@ jobs:
           cp -r site/* public/
           cp brand/logo-mark.svg brand/wordmark.svg brand/social-preview.png public/brand/
           cp brand/png/icon-32.png public/favicon.png
-      - uses: actions/configure-pages@v5
+      - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v3
         with:
           path: public
