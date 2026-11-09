@@ -43,7 +43,7 @@
 - `Nashir-<version>-windows-x64-setup.exe`: مثبّت مع اختصارات وربط ملفات `.md`.
 - `Nashir-<version>-windows-x64-portable.zip`: نسخة محمولة؛ فك الضغط وشغّل `Nashir.exe`.
 
-يتطلب Windows 10 (الإصدار 1809) أو أحدث.
+يتطلب Windows 10 (الإصدار 1809) أو أحدث. نسخ Linux (`.tar.gz`) وmacOS (`.zip`) تجريبية وتظهر في الإصدارات حين ينجح بناؤها؛ منصة Windows هي المدعومة رسمياً الآن.
 
 ### المساهمة
 

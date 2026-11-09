@@ -6,6 +6,10 @@ All notable changes to Nashir are documented here. The format follows
 
 ## [Unreleased]
 
+### Changed
+
+- Release workflow: fixed the Windows checksums step; experimental Linux and macOS builds run without blocking the Windows release.
+
 ## [0.1.0] - 2026-11-09
 
 The first release of Nashir (ناشر), a native Markdown reader for Windows built on Native Shell 0.4.

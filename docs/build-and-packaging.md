@@ -74,8 +74,8 @@ In CI this happens automatically when the `WINDOWS_CERT_PFX_BASE64` and `WINDOWS
 
 | Target | Command | Status |
 |---|---|---|
-| Linux (GTK 4.14+) | `nsh package App.tsx --target linux` → folder + `.tar.gz` | Builds in CI; experimental |
-| macOS 14+ | `nsh package App.tsx --target macos` → ad hoc signed `.app` | Builds in CI; experimental (needs Developer ID + notarization to distribute) |
+| Linux (GTK 4.14+) | `nsh package App.tsx --target linux` → folder + `.tar.gz` | Experimental: CI attempts it on each release; not yet verified |
+| macOS 14+ | `nsh package App.tsx --target macos` → ad hoc signed `.app` | Experimental: CI attempts it on each release; not yet verified (needs Developer ID + notarization to distribute) |
 
 The interface adapts automatically: the custom title bar reserves the platform's window controls (`titleBar()`), menus are the system's, and the `mod` key is ⌘ on macOS.
 
